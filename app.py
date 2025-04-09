@@ -21,7 +21,7 @@ def saludos():
 
 @app.route("/tercero")
 def despedida():
-    return "<h2>ella con cualquiera no se besa</h2>"
+    return "<a href="" "
 
 @app.route("/tercero/<string:nombre>")
 def saludaremos(nombre):
