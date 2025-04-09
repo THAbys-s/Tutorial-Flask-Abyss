@@ -1,14 +1,18 @@
-from flask import Flask
+from flask import Flask, url_for
 
 app = Flask(__name__)
 
 @app.route("/")
 def bienvenida():
+    url_hola = url_for("saludos")
     return  """
-        <a href="/primero">Inicio</a>
+        
+        <a href="{url_hola}>Inicio</a>
+        <div> <div>
         <a href="/segundo">Medio</a>
         <button onclick="window.location.href='/tercero'">Final - Maluma</button>
 """
+
 
 @app.route("/primero")
 def inicial():
