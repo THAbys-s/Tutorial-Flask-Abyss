@@ -1,17 +1,22 @@
 from flask import Flask, url_for
+import sqlite3
 
 app = Flask(__name__)
 
+
 @app.route("/")
 def bienvenida():
-    url_hola = url_for("saludos")
-    return  """
+    url_hola = url_for("inicial")
+    url_segundo = url_for("saludos")
+    return  f"""
         
-        <a href="{url_hola}>Inicio</a>
+        <a href="{url_hola}">Inicio</a>
         <div> <div>
-        <a href="/segundo">Medio</a>
+        
+        <a href="{url_segundo}">Medio</a>
         <button onclick="window.location.href='/tercero'">Final - Maluma</button>
-"""
+            
+            """
 
 
 @app.route("/primero")
@@ -51,3 +56,30 @@ def division(n1, n2):
     else:
         return f"<h2>La división entre {n1} y {n2} da como resultado {resultado}.</h2>"
 
+
+
+
+# SQLITE 
+
+db = None
+def abrirConexion():
+    db = sqlite3.connect("instance/datos.sqlite")
+    db.row_factory = sqlite3.Row
+    return db
+
+def cerrarConexion():
+    global db
+    if db is not None:
+        db.close()
+        db = None
+
+@app.route("/sqlite/usuario")
+def obtenerGente():
+    global db
+    conexion = abrirConexion()
+    cursor = conexion.cursor()
+    cursor.execute('SELECT * FROM usuarios')
+    resultado = cursor.fetchall()
+    cerrarConexion()
+    fila = [dict(row) for row in resultado]
+    return str(fila)
