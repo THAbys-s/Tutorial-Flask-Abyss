@@ -122,6 +122,18 @@ def testDB(usuario, email):
  registros = res["cant"]  # Extrae el número de registros
  return f"Se insertó a {usuario} con email {email}. Ahora hay {registros} registros en la tabla usuarios."  # Devuelve un mensaje de confirmación
 
+# Ruta para actualizar un email en base al usuario en la base de datos
+@app.route("/sqlite/actualizar/<string:usuario>/<string:nuevo_email>")
+def testUpdate(usuario, nuevo_email):
+ conexion = abrirConexion()  # Abre la conexión con la base de datos
+ cursor = conexion.cursor()  # Crea un cursor para ejecutar la consulta SQL
+ # Actualizmos de forma segura utilizando parámetros en lugar de concatenar valores.
+ db.execute("UPDATE usuarios SET email=? WHERE usuario=?", (nuevo_email, usuario))  
+ db.commit()  # Guarda los cambios realizados en la base de datos
+ cerrarConexion()  # Cierra la conexión con la base de datos
+ return f"Actualizamos el correo del usuario {usuario} a {nuevo_email}."  # Devuelve un mensaje de confirmación
+
+
 # Ruta para borrar un usuario de la base de datos por su id
 @app.route("/sqlite/delete/<int:id>")
 def testDelete(id):
@@ -133,7 +145,7 @@ def testDelete(id):
  conexion.commit()  # Guarda los cambios realizados en la base de datos
  cerrarConexion()  # Cierra la conexión con la base de datos
  return f"Se borro el id {id} en la tabla usuarios."  # Devuelve un mensaje de confirmación
-
+#by juanma
 # Ruta para obtener un usuario específico de la base de datos por su id
 @app.route("/sqlite/usuario/<int:id>")
 def selecciónIndividual(id):
