@@ -160,19 +160,14 @@ def selecciónIndividual(id):
 def datos_sqlite(id):
    abrirConexion()
    cursor = db.cursor()
-   cursor.execute('SELECT id, usuario, email, telefono, direccion FROM usuarios WHERE id = ?; ', ((id,)))
+   cursor.execute('SELECT id, usuario, email FROM usuarios WHERE id = ?; ', ((id,)))
    res = cursor.fetchone()
    cerrarConexion()
    usuario = None
    email = None
-   telefono = None
-   calle = None
-
    if res != None:
       usuario = res['usuario']
       email = res['email']
-      telefono = res['telefono']
-      calle = res['direccion']
-      return render_template("template1.html", id=id, usuario=usuario, email=email, telefono=telefono, direccion=calle)
+      return render_template("template1.html", id=id, usuario=usuario, email=email)
 
 
