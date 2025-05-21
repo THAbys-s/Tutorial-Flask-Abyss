@@ -9,7 +9,7 @@ def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(
             current_app.config['DATABASE'],
-            detect_types=sqlite3.PARSE_DECLTYPES
+            detect_types=sqlite3.PARSE_DECLTYPES | sqlite3.PARSE_COLNAMES
         )
         g.db.row_factory = sqlite3.Row
 
@@ -40,3 +40,6 @@ sqlite3.register_converter(
     "timestamp", lambda v: datetime.fromisoformat(v.decode())
 )
 
+def init_app(app):
+    app.teardown_appcontext(close_db)
+    app.cli.add_command(init_db_command)
