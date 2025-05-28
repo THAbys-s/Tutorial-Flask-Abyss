@@ -1,0 +1,29 @@
+<!doctype html>
+<title> Flaskr </title>
+<link rel="stylesheet" href="/flaskr/static/style.css">
+<nav>
+  <h1>Flaskr</h1>
+  <ul>
+
+      <li><a href="flaskr/templates/auth/register.html">Register</a>
+      <li><a href="flaskr/templates/auth/login.html">Log In</a>
+  
+    </ul>
+</nav>
+<section class="content">
+
+  <header>
+    <h1> Register </h1>
+  </header>
+  
+    <div class="flash">Usuario Incorrecto</div>
+  
+  <form method="post">
+  <label for="username">Username</label>
+  <input name="username" id="username">
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password">
+  <input type="submit">
+  </form>
+
+</section>

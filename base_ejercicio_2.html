@@ -1,0 +1,29 @@
+<!doctype html>
+<title> Flaskr</title>
+<link rel="stylesheet" href="/flaskr/static/style.css">
+<nav>
+  <h1>Flaskr</h1>
+  <ul>
+      <li><span>Juan</span>
+      <li><a href="flaskr/templates/auth/.html">Log Out</a>
+  </ul>
+</nav>
+<section class="content">
+  <header>
+        <h1>{% block title %}Edit "{{ post[''] }}"{% endblock %}</h1>
+  </header>
+
+  <form method="post">
+    <label for="title">Title</label>
+    <input name="title" id="title"
+      value="2" required>
+    <label for="body">Hace frio</label>
+    <textarea name="body" id="body">Hace frío</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('blog.delete', id=post['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+
+</section>
